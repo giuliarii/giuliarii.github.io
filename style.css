@@ -66,6 +66,7 @@ main {
 .gallery-section h2 {
   color: var(--dark-color);
   font-size: 1.8rem;
+  margin: 1rem auto;
   margin-bottom: 0.5rem;
 }
 
