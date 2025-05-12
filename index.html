@@ -5,65 +5,146 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Incendio di Sarabah - 2019</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
   <header>
-    <h1>Incendio di Sarabah (Australia) - 2019</h1>
+    <div class="header-content">
+      <h1>Incendio di Sarabah (Australia) - 2019</h1>
+      <p>Una catastrofe ambientale e il suo percorso di recupero</p>
+    </div>
   </header>
 
   <main>
-    <p>
-      Nel 2019, l'Australia ha affrontato una delle sue peggiori stagioni di incendi boschivi. 
-      Uno degli eventi significativi è stato l'incendio vicino a Sarabah, nel Queensland.
-    </p>
+    <section class="intro-section">
+      <p>
+        Nel 2019, l'Australia ha affrontato una delle sue peggiori stagioni di incendi boschivi. 
+        Uno degli eventi significativi è stato l'incendio vicino a Sarabah, nel Queensland.
+      </p>
 
-    <p>
-      L'incendio di Sarabah ha avuto inizio a settembre 2019, alimentato da condizioni di siccità 
-      estreme, alte temperature e venti forti. Ha minacciato comunità locali, danneggiato numerose abitazioni 
-      e causato estesi danni ambientali.
-    </p>
+      <p>
+        L'incendio di Sarabah ha avuto inizio a settembre 2019, alimentato da condizioni di siccità 
+        estreme, alte temperature e venti forti. Ha minacciato comunità locali, danneggiato numerose abitazioni 
+        e causato estesi danni ambientali.
+      </p>
 
-    <p>
-      Le autorità hanno evacuato diverse aree e impiegato squadre di emergenza per contenere il fuoco. 
-      Fortunatamente, non ci sono state vittime, ma l'impatto ecologico e psicologico sulla popolazione locale 
-      è stato significativo.
-    </p>
+      <p>
+        Le autorità hanno evacuato diverse aree e impiegato squadre di emergenza per contenere il fuoco. 
+        Fortunatamente, non ci sono state vittime, ma l'impatto ecologico e psicologico sulla popolazione locale 
+        è stato significativo.
+      </p>
+    </section>
 
-    <h2>Immagini Satellitari</h2>
-    <p>Confronta l'area di Sarabah prima, subito dopo e tre anni dopo l'incendio del 2019.</p>
+    <section class="gallery-section">
+      <h2>Immagini Satellitari</h2>
+      <p class="subtitle">Confronta l'area di Sarabah prima, subito dopo e tre anni dopo l'incendio del 2019</p>
 
-    <div class="image-slider">
-      <img id="satellite-image" src="immagine-prima.jpg" alt="Immagine satellitare prima dell'incendio">
-      <div class="image-caption" id="image-caption">Prima dell'incendio</div>
-      <div class="slider-controls">
-        <button onclick="showImage(0)">Prima</button>
-        <button onclick="showImage(1)">Dopo</button>
-        <button onclick="showImage(2)">3 Anni Dopo</button>
+      <div class="image-slider">
+        <div class="slider-container">
+          <img id="satellite-image" src="immagine-prima.jpg" alt="Immagine satellitare prima dell'incendio">
+          <div class="image-caption" id="image-caption">Prima dell'incendio</div>
+        </div>
+        <div class="slider-controls">
+          <button id="prev-btn" class="nav-btn"><i class="fas fa-chevron-left"></i></button>
+          <button id="next-btn" class="nav-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="progress-dots">
+          <span class="dot active" data-index="0"></span>
+          <span class="dot" data-index="1"></span>
+          <span class="dot" data-index="2"></span>
+        </div>
       </div>
-    </div>
 
-    <p>
-      Le immagini mostrano chiaramente la trasformazione del paesaggio, con vaste aree verdi ridotte in cenere.
-    </p>
+      <p class="gallery-description">
+        Le immagini mostrano chiaramente la trasformazione del paesaggio, con vaste aree verdi ridotte in cenere.
+        Dopo tre anni, si può osservare il lento processo di rigenerazione della vegetazione.
+      </p>
+    </section>
   </main>
 
   <footer>
-    <p>Creata dal gruppo composto da: Giuliari, Arapaj, Soldani</p>
+    <div class="footer-content">
+      <p>Progetto realizzato da: Giuliari, Arapaj, Soldani</p>
+      <p class="credits">Dati satellitari: European Union, contiene dati modificati del Queensland Sentinel 2025</p>
+    </div>
   </footer>
 
   <script>
     const images = [
-      { src: 'immagine-prima.jpg', caption: 'Prima dell\'incendio' },
-      { src: 'immagine-dopo.jpg', caption: 'Subito dopo l\'incendio' },
-      { src: 'immagine-dopo-3anni.jpg', caption: 'Tre anni dopo l\'incendio' }
+      { src: 'immagine-prima.jpg', caption: 'Prima dell\'incendio (2018)' },
+      { src: 'immagine-dopo.jpg', caption: 'Subito dopo l\'incendio (2019)' },
+      { src: 'immagine-dopo-3anni.jpg', caption: 'Tre anni dopo l\'incendio (2022)' }
     ];
 
+    let currentIndex = 0;
+    let slideInterval;
+    const slideDuration = 5000; // 5 secondi
+
     function showImage(index) {
+      // Assicurati che l'indice sia valido
+      if (index < 0) index = images.length - 1;
+      if (index >= images.length) index = 0;
+      
+      currentIndex = index;
+      
+      // Aggiorna l'immagine e la didascalia
       document.getElementById('satellite-image').src = images[index].src;
       document.getElementById('satellite-image').alt = images[index].caption;
       document.getElementById('image-caption').textContent = images[index].caption;
+      
+      // Aggiorna i punti di navigazione
+      document.querySelectorAll('.dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+      
+      // Resetta il timer dello slider automatico
+      resetSlideTimer();
     }
+
+    function nextImage() {
+      showImage(currentIndex + 1);
+    }
+
+    function prevImage() {
+      showImage(currentIndex - 1);
+    }
+
+    function startSlideTimer() {
+      slideInterval = setInterval(nextImage, slideDuration);
+    }
+
+    function resetSlideTimer() {
+      clearInterval(slideInterval);
+      startSlideTimer();
+    }
+
+    // Inizializzazione
+    document.addEventListener('DOMContentLoaded', () => {
+      // Aggiungi event listeners ai pulsanti
+      document.getElementById('next-btn').addEventListener('click', nextImage);
+      document.getElementById('prev-btn').addEventListener('click', prevImage);
+      
+      // Aggiungi event listeners ai punti di navigazione
+      document.querySelectorAll('.dot').forEach(dot => {
+        dot.addEventListener('click', () => {
+          showImage(parseInt(dot.dataset.index));
+        });
+      });
+      
+      // Avvia lo slider automatico
+      startSlideTimer();
+      
+      // Pausa lo slider quando il mouse è sopra l'immagine
+      document.querySelector('.slider-container').addEventListener('mouseenter', () => {
+        clearInterval(slideInterval);
+      });
+      
+      // Riprendi lo slider quando il mouse lascia l'immagine
+      document.querySelector('.slider-container').addEventListener('mouseleave', () => {
+        startSlideTimer();
+      });
+    });
   </script>
 
 </body>
