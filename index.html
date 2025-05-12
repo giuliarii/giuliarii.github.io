@@ -2,46 +2,69 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Incendio di Sarabah - 2019</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <h1>Incendio di Sarabah (Australia) - 2019</h1>
+  <header>
+    <h1>Incendio di Sarabah (Australia) - 2019</h1>
+  </header>
 
-  <p>
-    Nel 2019, l'Australia ha affrontato una delle sue peggiori stagioni di incendi boschivi. 
-    Uno degli eventi significativi è stato l'incendio vicino a Sarabah, nel Queensland.
-  </p>
+  <main>
+    <p>
+      Nel 2019, l'Australia ha affrontato una delle sue peggiori stagioni di incendi boschivi. 
+      Uno degli eventi significativi è stato l'incendio vicino a Sarabah, nel Queensland.
+    </p>
 
-  <p>
-    L'incendio di Sarabah ha avuto inizio a settembre 2019, alimentato da condizioni di siccità 
-    estreme, alte temperature e venti forti. Ha minacciato comunità locali, danneggiato numerose abitazioni 
-    e causato estesi danni ambientali.
-  </p>
+    <p>
+      L'incendio di Sarabah ha avuto inizio a settembre 2019, alimentato da condizioni di siccità 
+      estreme, alte temperature e venti forti. Ha minacciato comunità locali, danneggiato numerose abitazioni 
+      e causato estesi danni ambientali.
+    </p>
 
-  <p>
-    Le autorità hanno evacuato diverse aree e impiegato squadre di emergenza per contenere il fuoco. 
-    Fortunatamente, non ci sono state vittime, ma l'impatto ecologico e psicologico sulla popolazione locale 
-    è stato significativo.
-  </p>
+    <p>
+      Le autorità hanno evacuato diverse aree e impiegato squadre di emergenza per contenere il fuoco. 
+      Fortunatamente, non ci sono state vittime, ma l'impatto ecologico e psicologico sulla popolazione locale 
+      è stato significativo.
+    </p>
 
-  <h2>Immagini satellitari</h2>
-  <p>Qui sotto puoi vedere un confronto satellitare dell'area appena dopo l'incendio e dopo 3 anni.</p>
+    <h2>Immagini Satellitari</h2>
+    <p>Confronta l'area di Sarabah prima, subito dopo e tre anni dopo l'incendio del 2019.</p>
 
-  <h3>Dopo l'incendio</h3>
-  <img src="immagine-dopo.jpg" alt="Immagine satellitare prima dell'incendio" width="600">
+    <div class="image-slider">
+      <img id="satellite-image" src="immagine-prima.jpg" alt="Immagine satellitare prima dell'incendio">
+      <div class="image-caption" id="image-caption">Prima dell'incendio</div>
+      <div class="slider-controls">
+        <button onclick="showImage(0)">Prima</button>
+        <button onclick="showImage(1)">Dopo</button>
+        <button onclick="showImage(2)">3 Anni Dopo</button>
+      </div>
+    </div>
 
-  <h3>3 anni dopo l'incendio</h3>
-  <img src="immagine-dopo-3anni.jpg" alt="Immagine satellitare dopo l'incendio" width="600">
-
-  <p>
-    Le immagini mostrano chiaramente la trasformazione del paesaggio, con vaste aree verdi ridotte in cenere.
-  </p>
+    <p>
+      Le immagini mostrano chiaramente la trasformazione del paesaggio, con vaste aree verdi ridotte in cenere.
+    </p>
+  </main>
 
   <footer>
     <p>Creata dal gruppo composto da: Giuliari, Arapaj, Soldani</p>
   </footer>
+
+  <script>
+    const images = [
+      { src: 'immagine-prima.jpg', caption: 'Prima dell\'incendio' },
+      { src: 'immagine-dopo.jpg', caption: 'Subito dopo l\'incendio' },
+      { src: 'immagine-3anni-dopo.jpg', caption: 'Tre anni dopo l\'incendio' }
+    ];
+
+    function showImage(index) {
+      document.getElementById('satellite-image').src = images[index].src;
+      document.getElementById('satellite-image').alt = images[index].caption;
+      document.getElementById('image-caption').textContent = images[index].caption;
+    }
+  </script>
 
 </body>
 </html>
