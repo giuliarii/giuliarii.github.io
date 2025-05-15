@@ -170,8 +170,8 @@ main {
 }
 
 footer {
-  background-color: black;
-  color: white;
+  background-color: #000000;
+  color: black;
   padding: 2rem 1rem;
   text-align: center;
 }
