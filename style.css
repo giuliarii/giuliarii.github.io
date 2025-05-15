@@ -19,7 +19,7 @@ body {
 }
 
 header {
-  background: --primary-color;
+  background: #000000;
   color: white;
   padding: 2rem 1rem;
   text-align: center;
